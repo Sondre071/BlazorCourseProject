@@ -1,12 +1,19 @@
 ﻿@using EventEaseProject.Models
 
-<article class="event_article">
-    <h3>@Event.Name</h3>
-    <p>
-        @Event.Date at @Event.Location
-    </p>
-</article>
+@if (string.IsNullOrWhiteSpace(Event.Name) || string.IsNullOrWhiteSpace(Event.Date) || string.IsNullOrWhiteSpace(Event.Location))
+{
+    <h3>Invalid event data.</h3>
+}
+else
+{
+    <article class="event_article">
+        <h3>@Event.Name</h3>
+        <p>
+            @Event.Date at @Event.Location
+        </p>
+    </article>
+}
 
 @code {
-    [Parameter] public Event Event { get; set; }
+    [Parameter, EditorRequired] public Event Event { get; set; }
 }

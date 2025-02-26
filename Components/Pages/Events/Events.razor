@@ -14,7 +14,7 @@
 <article>
     @foreach (var evt in EventsList)
     {
-        <EventCard Event="@evt"></EventCard>
+        <EventCard Event="@evt" @key="@evt.Name"></EventCard>
     }
 </article>
 
