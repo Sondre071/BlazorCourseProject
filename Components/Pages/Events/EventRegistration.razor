@@ -1,0 +1,41 @@
+﻿@page "/events/register"
+@using EventEaseProject.Models
+
+<h1>EventRegistration</h1>
+
+<EditForm Model="@NewEvent">
+   <div class="form_field">
+      <label for="reg_name">Name</label>
+      <InputText id="reg_name" @bind-Value="NewEvent.Name"></InputText>
+   </div>
+   <div class="form_field">
+      <label for="reg_location">Location</label>
+      <InputText id="reg_location" @bind-Value="NewEvent.Location"></InputText>
+   </div>
+   <div class="form_field">
+      <label for="reg_date">Date</label>
+      <InputText id="reg_date" @bind-Value="NewEvent.Date"></InputText>
+   </div>
+   <div>
+      <button @onclick="@HandleValidSubmit" type="submit">Submit</button>
+   </div>
+</EditForm>
+
+@code {
+
+   private Event NewEvent;
+
+   protected override void OnInitialized()
+   {
+      NewEvent = new Event(
+         "",
+         "",
+         ""
+      );
+   }
+
+   private void HandleValidSubmit()
+   {
+   }
+
+}

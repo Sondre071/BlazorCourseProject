@@ -1,0 +1,14 @@
+﻿.page_header {
+    margin-bottom: 1.4rem;
+}
+
+.register_button {
+    border-radius: 6px;
+    padding: 0.4rem;
+}
+
+
+.event_article {
+    display: flex;
+    flex-direction: column;
+}

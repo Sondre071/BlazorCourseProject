@@ -1,0 +1,12 @@
+﻿@using EventEaseProject.Models
+
+<article class="event_article">
+    <h3>@Event.Name</h3>
+    <p>
+        @Event.Date at @Event.Location
+    </p>
+</article>
+
+@code {
+    [Parameter] public Event Event { get; set; }
+}

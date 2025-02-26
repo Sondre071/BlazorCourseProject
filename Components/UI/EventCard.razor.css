@@ -1,0 +1,5 @@
+﻿
+.event_article {
+    display: flex;
+    flex-direction: column;
+}
