@@ -1,20 +1,18 @@
 ﻿@page "/events"
 @using EventEaseProject.Models
 @using EventEaseProject.Components.UI
+@using EventEaseProject.Services
+@inject EventService EventService
+
 
 <header class="page_header">
     <h1 class="title">Upcoming events</h1>
-    <NavLink href="events/register">
-        <button class="register_button">
-            Register an event!
-        </button>
-    </NavLink>
 </header>
 
 <article>
     @foreach (var evt in EventsList)
     {
-        <EventCard Event="@evt" @key="@evt.Name"></EventCard>
+        <EventCard Event="@evt" @key="@evt.Id"></EventCard>
     }
 </article>
 
@@ -22,16 +20,9 @@
 
     private List<Event> EventsList { get; set; }
 
-
     protected override void OnInitialized()
     {
-        EventsList =
-        [
-            new Event("NDC", "April 13th 2025", "Oslo"),
-            new Event("Kingsday", "April 27th 2025", "The Netherlands"),
-            new Event("Dinner with the Queen", "August 6th 2025", "Stockholm"),
-            new Event("National pet-a-cat-day", "September 15th 2025", "Norway"),
-        ];
+        EventsList = EventService.GetAllEvents();
     }
 
 }

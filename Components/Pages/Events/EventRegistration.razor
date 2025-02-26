@@ -1,41 +1,62 @@
-﻿@page "/events/register"
-@using EventEaseProject.Models
+﻿@page "/events/{EventId:int}/register"
+@using System.ComponentModel.DataAnnotations
+@using EventEaseProject.Services
 
 <h1>EventRegistration</h1>
 
-<EditForm Model="@NewEvent">
+<EditForm Model="@RegFormData" OnValidSubmit="HandleValidSubmit">
+   <DataAnnotationsValidator/>
+   <ValidationSummary/>
+
    <div class="form_field">
       <label for="reg_name">Name</label>
-      <InputText id="reg_name" @bind-Value="NewEvent.Name"></InputText>
+      <InputText id="reg_name" @bind-Value="RegFormData.Name"></InputText>
+      <ValidationMessage For="@(() => RegFormData.Name)"></ValidationMessage>
    </div>
    <div class="form_field">
-      <label for="reg_location">Location</label>
-      <InputText id="reg_location" @bind-Value="NewEvent.Location"></InputText>
+      <label for="reg_age">Age</label>
+      <InputNumber id="reg_age" @bind-Value="RegFormData.Age"></InputNumber>
+      <ValidationMessage For="@(() => RegFormData.Age)"></ValidationMessage>
    </div>
    <div class="form_field">
-      <label for="reg_date">Date</label>
-      <InputText id="reg_date" @bind-Value="NewEvent.Date"></InputText>
+      <label for="reg_email">Email</label>
+      <InputText id="reg_email" @bind-Value="RegFormData.Email"></InputText>
+      <ValidationMessage For="@(() => RegFormData.Email)"></ValidationMessage>
    </div>
    <div>
-      <button @onclick="@HandleValidSubmit" type="submit">Submit</button>
+      <input type="submit" value="save" />
    </div>
 </EditForm>
 
 @code {
 
-   private Event NewEvent;
+   [Parameter] public int EventId { get; set; }
+
+   private class NewRegistration()
+   {
+      [Required(ErrorMessage = "Name is required.")]
+      public string? Name { get; set; }
+
+      [Range(13, 100, ErrorMessage = "Age must be between 13 and 100.")]
+      public int? Age { get; set; } = null;
+
+      [Required(ErrorMessage = "Email is required.")]
+      [EmailAddress(ErrorMessage = "Invalid email format.")]
+      public string Email { get; set; } = "";
+   }
+
+   private NewRegistration RegFormData;
 
    protected override void OnInitialized()
    {
-      NewEvent = new Event(
-         "",
-         "",
-         ""
-      );
+      RegFormData = new NewRegistration();
    }
 
    private void HandleValidSubmit()
    {
+      if (RegFormData.Age is not { } age || RegFormData.Name is not { } name) return;
+         
+      EventService.AddRegistration(EventId, name, age, RegFormData.Email);
    }
 
 }

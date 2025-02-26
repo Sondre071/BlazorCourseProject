@@ -2,18 +2,11 @@
 
 namespace EventEaseProject.Models
 {
-    public class Event
+    public class Event(int id, string name, string date, string location)
     {
-
-        public string Name { get; set; }
-        public string Date { get; set; }
-        public string Location { get; set; }
-        
-        public Event(string name, string date, string location)
-        {
-            Name = name;
-            Date = date;
-            Location = location;
-        }
+        public int Id { get; set; } = id;
+        public string Name { get; set; } = name;
+        public string Date { get; set; } = date;
+        public string Location { get; set; } = location;
     }
 }

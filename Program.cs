@@ -1,6 +1,10 @@
 using EventEaseProject.Components;
+using EventEaseProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add event service.
+builder.Services.AddSingleton<EventService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

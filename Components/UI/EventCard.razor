@@ -11,6 +11,11 @@ else
         <p>
             @Event.Date at @Event.Location
         </p>
+        <NavLink href="@($"events/{Event.Id}/register")">
+            <button class="event-register_button">
+                Register
+            </button>
+        </NavLink>
     </article>
 }
 
